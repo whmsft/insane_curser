@@ -6,9 +6,9 @@ import "graphics" for Canvas, Color, Font
 var VERSION = "4" // changes with each commit
 
 class Triangle {
-  random {_rand}
   x {_x}
   y {_y}
+  random {_rand}
   speed {_speed}
   construct new() {
     _rand = Random.new()
@@ -16,7 +16,9 @@ class Triangle {
     _x = 0
     _speed = random.float(0.1, 1.5)
   }
-  update() {}
+  update() {
+    System.print(1+1)
+  }
   draw() {
     Canvas.trianglefill(x+speed, y, x+speed, y-10, x+speed, y+10, Color.darkgrey)
   }
@@ -49,8 +51,7 @@ class main {
     Canvas.circlefill(Mouse.x, Mouse.y, 5, Color.white)
     _shapes.each { |shape| 
       shape.draw()
-      }
     }
   }
-}
+}}
 var Game = main.new()
