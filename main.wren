@@ -3,7 +3,7 @@ import "random" for Random
 import "input" for Keyboard, Mouse
 import "graphics" for Canvas, Color, Font
 
-var VERSION = "7" // changes with each commit
+var VERSION = "8" // changes with each commit
 
 class Triangle {
   x {_x}
@@ -14,7 +14,7 @@ class Triangle {
     _rand = Random.new()
     _y = sy
     _x = 0
-    _speed = random.float(15.0, 25.0)
+    _speed = random.float(10.0, 25.0)
   }
   draw() {
     Canvas.trianglefill(x+50, y, x, y-20, x, y+20, Color.darkgray)
