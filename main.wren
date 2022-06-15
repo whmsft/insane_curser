@@ -3,7 +3,7 @@ import "random" for Random
 import "input" for Keyboard, Mouse
 import "graphics" for Canvas, Color, Font
 
-var VERSION = "10" // changes with each commit
+var VERSION = "11" // changes with each commit
 var MODE = "not-playing" // either playing or not-playing
 
 class Nuke {
@@ -61,6 +61,7 @@ class Triangle {
 class main {
   construct new() {}
   init() {
+    _uptime = 0
     _shapes = []
     _rand = Random.new()
     _wait = _rand.float(0.25, 0.5)
@@ -72,15 +73,17 @@ class main {
     Window.resize(Canvas.width, Canvas.height)
   }
   update() {
-    _tick = _tick+1
-    if (_tick >= 60 * _wait) {
-      if (_rand.int(2) == 0) {
-        _shapes.add(Triangle.new(_rand.int(544)))
-      } else {
-        _shapes.add(Nuke.new(_rand.int(960)))
+    if (MODE == "playing") {
+      _tick = _tick+1
+      if (_tick >= 60 * _wait) {
+        if (_rand.int(2) == 0) {
+          _shapes.add(Triangle.new(_rand.int(544)))
+        } else {
+          _shapes.add(Nuke.new(_rand.int(960)))
+        }
+        _tick = 0
+        _wait = _rand.float(0.25, 0.5)
       }
-      _tick = 0
-      _wait = _rand.float(0.25, 0.5)
     }
     if ((MODE == "not-playing") && (Keyboard.isKeyDown("return"))) {
       MODE = "playing"
@@ -89,6 +92,7 @@ class main {
   }
   draw(alpha) {
     if (MODE == "playing") {
+      _uptime = _uptime+1/60
       Canvas.cls()
       Font["OpenSans"].print(_uptime.toString, 10, 10, Color.white)
       Canvas.circlefill(Mouse.x, Mouse.y, 5, Color.white)
@@ -100,6 +104,7 @@ class main {
       }
     } else {
       Canvas.cls()
+      Canvas.circlefill(Mouse.x, Mouse.y, 5, Color.white)
       Font["OpenSans"].print("Hit <RETURN> to start the chaos", 10, 300, Color.white)
     }
   }
