@@ -3,7 +3,7 @@ import "random" for Random
 import "input" for Keyboard, Mouse
 import "graphics" for Canvas, Color, Font
 
-var VERSION = "4" // changes with each commit
+var VERSION = "7" // changes with each commit
 
 class Triangle {
   x {_x}
