@@ -3,7 +3,8 @@ import "random" for Random
 import "input" for Keyboard, Mouse
 import "graphics" for Canvas, Color, Font
 
-var VERSION = "8" // changes with each commit
+var VERSION = "9" // changes with each commit
+var MODE = "not-playing" // either playing or not-playing
 
 class Triangle {
   x {_x}
@@ -31,6 +32,7 @@ class main {
     _tick = 0
     Mouse.hidden = true
     Canvas.resize(960, 544)
+    Font.load("OpenSans", "./OpenSans.ttf", 25)
     Window.title = "insane CURSEr c"+VERSION
     Window.resize(Canvas.width, Canvas.height)
   }
@@ -42,12 +44,23 @@ class main {
       _tick = 0
       _wait = _rand.float(0.25, 0.5)
     }
+    if ((MODE == "not-playing") && (Keyboard.isKeyDown("return"))) {
+      MODE = "playing"
+    }
   }
   draw(alpha) {
-    Canvas.cls()
-    Canvas.circlefill(Mouse.x, Mouse.y, 5, Color.white)
-    _shapes.each { |shape| 
-      shape.draw()
+    if (MODE == "playing") {
+      Canvas.cls()
+      Canvas.circlefill(Mouse.x, Mouse.y, 5, Color.white)
+      _shapes.each { |shape| 
+        shape.draw()
+      }
+      if (Canvas.pget(Mouse.x, Mouse.y) == Color.darkgray) {
+        MODE = "not-playing"
+      }
+    } else {
+      Canvas.cls()
+      Font["OpenSans"].print("Hit <RETURN> to start the chaos", 10, 300, Color.white)
     }
   }
 }
