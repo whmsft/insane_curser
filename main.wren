@@ -3,18 +3,21 @@ import "random" for Random
 import "input" for Keyboard, Mouse
 import "graphics" for Canvas, Color, Font
 
-var VERSION = "11" // changes with each commit
-var MODE = "not-playing" // either playing or not-playing
+var VERSION = "12" // changes with each commit
+var MODE = "not-playing" // either "playing" or "not-playing"
 
 class Nuke {
+  FINISH {_fin}
   x {_x}
   y {_y}
   speed {_speed}
   random {_rand}
   rot {_r}
   rep {_rep}
+  dor {_dor}
   construct new(startx) {
     _rand = Random.new()
+    _dor = random.int(1, 5)
     _y = 0
     _x = startx
     _speed = random.float(5.0, 15.0)
@@ -22,13 +25,14 @@ class Nuke {
     _rep = 20
   }
   draw() {
-    _rep = rep -1
+    if (y > 544) _fin = true
+    _rep = rep - 1
     if (rep >= 15) {
-      _rot = _rot -1
+      _rot = _rot - dor
     } else if (rep >= 5) {
-      _rot = _rot +1
+      _rot = _rot + dor
     } else if (rep >= 0) {
-      _rot = _rot -1
+      _rot = _rot - dor
     } else {
       _rep = 20
     }
@@ -44,6 +48,7 @@ class Nuke {
 class Triangle {
   x {_x}
   y {_y}
+  FINISH {_fin}
   speed {_speed}
   random {_rand}
   construct new(sy) {
@@ -53,6 +58,7 @@ class Triangle {
     _speed = random.float(10.0, 25.0)
   }
   draw() {
+    if (x > 960) _fin = true
     Canvas.trianglefill(x+50, y, x, y-20, x, y+20, Color.darkgray)
     _x = x+speed
   }
@@ -61,6 +67,7 @@ class Triangle {
 class main {
   construct new() {}
   init() {
+    _shapes_iterator
     _uptime = 0
     _shapes = []
     _rand = Random.new()
@@ -85,9 +92,17 @@ class main {
         _wait = _rand.float(0.25, 0.5)
       }
     }
+    _shapes.each { |shape|
+        if (shape.FINISH == true) {
+          _shapes.removeAt(_shapes_iterator)
+        }
+        _shapes_iterator = _shapes_iterator + 1
+    }
+    _shapes_iterator = 0
     if ((MODE == "not-playing") && (Keyboard.isKeyDown("return"))) {
       MODE = "playing"
       _uptime = 0
+      _shapes = []
     }
   }
   draw(alpha) {
