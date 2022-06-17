@@ -3,14 +3,14 @@ import "random" for Random
 import "input" for Keyboard, Mouse
 import "graphics" for Canvas, Color, Font
 
-var VERSION = "15" // changes with each commit
+var VERSION = "16" // changes with each commit
 var MODE = "not-playing" // either "playing" or "not-playing"
 
 class Wall {
   FINISH {_fin}
   speed {_speed}
   random {_rand}
-  construct new(startx) {
+  construct new() {
     _rand = Random.new()
     _y = -100
     _x = 960
@@ -18,6 +18,7 @@ class Wall {
     _ychanger = 80
   }
   draw() {
+    if (_x <= 0) _fin = true
     _ychanger = _ychanger - 1
     if (_ychanger >= 60) {
       _y = _y - 5
@@ -29,7 +30,7 @@ class Wall {
       _ychanger = 80
     }
     Canvas.rectfill(_x, _y-50, 30, 500, Color.darkgray)
-    Canvas.rectfill(_x, _y+520, 30, 500, Color.darkgray)
+    Canvas.rectfill(_x, _y+550, 30, 500, Color.darkgray)
     _x = _x - 10
   }
 }
@@ -95,7 +96,6 @@ class Triangle {
 class main {
   construct new() {}
   init() {
-    _shapes_iterator
     _uptime = 0
     _shapes = []
     _rand = Random.new()
@@ -113,8 +113,10 @@ class main {
       if (_tick >= 60 * _wait) {
         if (_rand.int(2) == 0) {
           _shapes.add(Triangle.new(_rand.int(544)))
-        } else {
-          _shapes.add(Wall.new(_rand.int(960)))
+        } else if (_rand.int(2) == 0) {
+          _shapes.add(Nuke.new(_rand.int(960)))
+        } else if (_rand.int(2) == 0){
+          _shapes.add(Wall.new())
         }
         _tick = 0
         _wait = _rand.float(0.25, 0.5)
