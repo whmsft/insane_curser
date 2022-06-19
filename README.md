@@ -5,4 +5,4 @@ CURSE your cursor with insanity
 =======
 &lt;Insane_CURSEr> an entry to Micro JAM #1
 
-Just be Insane and CUSRE the cursor!
+Just be Insane and CUSRE your cursor!
