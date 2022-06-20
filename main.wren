@@ -3,7 +3,7 @@ import "random" for Random
 import "input" for Keyboard, Mouse
 import "graphics" for Canvas, Color, Font
 
-var VERSION = "16" // changes with each commit
+var VERSION = "21" // changes with each commit
 var MODE = "not-playing" // either "playing" or "not-playing"
 
 class Wall {
