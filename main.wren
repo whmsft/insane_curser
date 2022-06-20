@@ -150,7 +150,7 @@ class main {
     } else {
       Canvas.cls()
       Canvas.circlefill(Mouse.x, Mouse.y, 5, Color.white)
-      Font["OpenSans"].print("Hit <RETURN> to start the chaos", 10, 300, Color.white)
+      Font["OpenSans"].print("Hit <RETURN> to start the chaos", 10, 10, Color.white)
     }
   }
 }
