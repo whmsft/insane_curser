@@ -3,7 +3,7 @@ import "random" for Random
 import "input" for Keyboard, Mouse
 import "graphics" for Canvas, Color, Font, ImageData
 
-var VERSION = "21" // changes with each commit
+var VERSION = "23" // changes with each commit
 var MODE = "not-playing" // either "playing" or "not-playing"
 
 class Wall {
@@ -94,6 +94,12 @@ class Triangle {
 }
 
 class main {
+  cutfloat(flt) {
+	_sflt = flt.toString
+	if (_sflt.count == 3) return _sflt
+	if (_sflt.count == 1) return _sflt+".00"
+	if (_sflt.count >= 4) return _sflt[0..3]
+  }
   construct new() {}
   init() {
     _uptime = 0
@@ -140,7 +146,7 @@ class main {
     if (MODE == "playing") {
       _uptime = _uptime+1/60
       Canvas.cls()
-      Font["OpenSans"].print(_uptime.toString, 10, 10, Color.white)
+      Font["OpenSans"].print("survived "+cutfloat(_uptime)+" secs", 10, 10, Color.white)
       Canvas.circlefill(Mouse.x, Mouse.y, 5, Color.white)
       _shapes.each { |shape| 
         shape.draw()
