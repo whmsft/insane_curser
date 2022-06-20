@@ -1,7 +1,7 @@
 import "dome" for Window
 import "random" for Random
 import "input" for Keyboard, Mouse
-import "graphics" for Canvas, Color, Font
+import "graphics" for Canvas, Color, Font, ImageData
 
 var VERSION = "21" // changes with each commit
 var MODE = "not-playing" // either "playing" or "not-playing"
@@ -29,8 +29,8 @@ class Wall {
     } else {
       _ychanger = 80
     }
-    Canvas.rectfill(_x, _y-50, 30, 500, Color.darkgray)
-    Canvas.rectfill(_x, _y+550, 30, 500, Color.darkgray)
+    Canvas.rectfill(_x, _y-50, 30, 500, Color.hex("444"))
+    Canvas.rectfill(_x, _y+550, 30, 500, Color.hex("444"))
     _x = _x - 10
   }
 }
@@ -67,9 +67,9 @@ class Nuke {
     }
     
     _x = x + _rot
-    Canvas.rectfill(x, y, 15, 40, Color.darkgray)
-    Canvas.rectfill(x-15/2, y+5, 30, 10, Color.darkgray)
-    //Canvas.trianglefill(x+50, y, x, y-20, x, y+20, Color.darkgray)
+    Canvas.rectfill(x, y, 15, 40, Color.hex("444"))
+    Canvas.rectfill(x-15/2, y+5, 30, 10, Color.hex("444"))
+    //Canvas.trianglefill(x+50, y, x, y-20, x, y+20, Color.hex("444"))
     _y = y+speed
   }
 }
@@ -88,7 +88,7 @@ class Triangle {
   }
   draw() {
     if (x > 960) _fin = true
-    Canvas.trianglefill(x+50, y, x, y-20, x, y+20, Color.darkgray)
+    Canvas.trianglefill(x+50, y, x, y-20, x, y+20, Color.hex("444"))
     _x = x+speed
   }
 }
@@ -103,6 +103,7 @@ class main {
     _tick = 0
     Mouse.hidden = true
     Canvas.resize(960, 544)
+	_intro = ImageData.loadFromFile("./intro.png")
     Font.load("OpenSans", "./OpenSans.ttf", 25)
     Window.title = "insane CURSEr c"+VERSION
     Window.resize(Canvas.width, Canvas.height)
@@ -144,11 +145,12 @@ class main {
       _shapes.each { |shape| 
         shape.draw()
       }
-      if (Canvas.pget(Mouse.x, Mouse.y) == Color.darkgray) {
+      if (Canvas.pget(Mouse.x, Mouse.y) == Color.hex("444")) {
         MODE = "not-playing"
       }
     } else {
       Canvas.cls()
+	  _intro.draw(0,0)
       Canvas.circlefill(Mouse.x, Mouse.y, 5, Color.white)
       Font["OpenSans"].print("Hit <RETURN> to start the chaos", 10, 10, Color.white)
     }
