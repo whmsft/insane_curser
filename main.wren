@@ -1,9 +1,10 @@
+import "audio" for AudioEngine
 import "dome" for Window
-import "random" for Random
-import "input" for Keyboard, Mouse
 import "graphics" for Canvas, Color, Font, ImageData
+import "input" for Keyboard, Mouse
+import "random" for Random
 
-var VERSION = "25" // changes with each commit
+var VERSION = "26" // changes with each commit
 var MODE = "not-playing" // either "playing" or "not-playing"
 
 class Wall {
@@ -102,20 +103,32 @@ class main {
   }
   construct new() {}
   init() {
+	_audioset = 0
+	_channel = ""
     _uptime = 0
     _shapes = []
     _rand = Random.new()
     _wait = _rand.float(0.25, 0.5)
     _tick = 0
+	_intro = ImageData.loadFromFile("./intro.png")
+	AudioEngine.load("menu", "menumusic.wav")
+	AudioEngine.load("game", "gamemusic.wav")
+    Font.load("OpenSans", "./OpenSans.ttf", 25)
     Mouse.hidden = true
     Canvas.resize(960, 544)
-	_intro = ImageData.loadFromFile("./intro.png")
-    Font.load("OpenSans", "./OpenSans.ttf", 25)
     Window.title = "insane CURSEr c"+VERSION
     Window.resize(Canvas.width, Canvas.height)
   }
   update() {
+	if ((MODE == "not-playing") && (_audioset == 0)) {
+	  _channel = AudioEngine.play("menu", 100, true)
+	  _audioset = 1
+	}
     if (MODE == "playing") {
+	  if (_audioset==0) {
+		_channel = AudioEngine.play("game", 100, true)
+		_audioset = 1
+	  }
       _tick = _tick+1
       if (_tick >= 60 * _wait) {
         if (_rand.int(2) == 0) {
@@ -140,6 +153,8 @@ class main {
       MODE = "playing"
       _uptime = 0
       _shapes = []
+	  _channel.stop()
+	  _audioset = 0
     }
   }
   draw(alpha) {
@@ -153,6 +168,8 @@ class main {
       }
       if (Canvas.pget(Mouse.x, Mouse.y) == Color.hex("444")) {
         MODE = "not-playing"
+		_channel.stop()
+		_audioset = 0
       }
     } else {
       Canvas.cls()
