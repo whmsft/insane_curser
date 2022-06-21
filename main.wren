@@ -4,7 +4,8 @@ import "graphics" for Canvas, Color, Font, ImageData
 import "input" for Keyboard, Mouse
 import "random" for Random
 
-var VERSION = "27" // changes with each commit
+var HI = "0"
+var VERSION = "30" // changes with each commit
 var MODE = "not-playing" // either "playing" or "not-playing"
 
 class Wall {
@@ -152,8 +153,6 @@ class main {
     _shapes_iterator = 0
     if ((MODE == "not-playing") && (Keyboard.isKeyDown("return"))) {
       MODE = "playing"
-      _uptime = 0
-      _shapes = []
 	  _channel.stop()
 	  _audioset = 0
     }
@@ -168,6 +167,9 @@ class main {
         shape.draw()
       }
       if (Canvas.pget(Mouse.x, Mouse.y) == Color.hex("444")) {
+        _shapes = []
+        if (_uptime > Num.fromString(HI)) HI = cutfloat(_uptime).toString
+        _uptime = 0
         MODE = "not-playing"
 		_channel.stop()
 		_audioset = 0
@@ -176,7 +178,7 @@ class main {
       Canvas.cls()
 	  _intro.draw(0,0)
       Canvas.circlefill(Mouse.x, Mouse.y, 5, Color.white)
-      Font["OpenSans"].print("Hit <RETURN> to start the chaos", 10, 10, Color.white)
+      Font["OpenSans"].print("Hit <RETURN> to start the chaos\nHIGHSCORE: "+HI, 10, 10, Color.white)
     }
   }
 }
