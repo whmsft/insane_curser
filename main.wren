@@ -4,7 +4,7 @@ import "graphics" for Canvas, Color, Font, ImageData
 import "input" for Keyboard, Mouse
 import "random" for Random
 
-var VERSION = "26" // changes with each commit
+var VERSION = "27" // changes with each commit
 var MODE = "not-playing" // either "playing" or "not-playing"
 
 class Wall {
@@ -97,9 +97,10 @@ class Triangle {
 class main {
   cutfloat(flt) {
     _sflt = flt.toString
-    if (_sflt.count == 3) return _sflt
-    if (_sflt.count == 1) return _sflt+".00"
-    if (_sflt.count >= 4) return _sflt[0..3]
+    _dotindex = _sflt.indexOf(".")
+    _fract = flt.fraction.toString
+    if (_fract == "0") return _sflt + ".00"
+    if (_fract.count >= 2) return _sflt[0.._dotindex] + _fract[2..2]
   }
   construct new() {}
   init() {
@@ -159,7 +160,7 @@ class main {
   }
   draw(alpha) {
     if (MODE == "playing") {
-      _uptime = _uptime+1/60
+      _uptime = _uptime+1/30
       Canvas.cls()
       Font["OpenSans"].print("survived "+cutfloat(_uptime).toString+" secs", 10, 10, Color.white)
       Canvas.circlefill(Mouse.x, Mouse.y, 5, Color.white)
@@ -167,7 +168,7 @@ class main {
         shape.draw()
       }
       if (Canvas.pget(Mouse.x, Mouse.y) == Color.hex("444")) {
-        //MODE = "not-playing"
+        MODE = "not-playing"
 		_channel.stop()
 		_audioset = 0
       }
