@@ -96,10 +96,10 @@ class Triangle {
 
 class main {
   cutfloat(flt) {
-	_sflt = flt.toString
-	if (_sflt.count == 3) return _sflt
-	if (_sflt.count == 1) return _sflt+".00"
-	if (_sflt.count >= 4) return _sflt[0..3]
+    _sflt = flt.toString
+    if (_sflt.count == 3) return _sflt
+    if (_sflt.count == 1) return _sflt+".00"
+    if (_sflt.count >= 4) return _sflt[0..3]
   }
   construct new() {}
   init() {
@@ -161,13 +161,13 @@ class main {
     if (MODE == "playing") {
       _uptime = _uptime+1/60
       Canvas.cls()
-      Font["OpenSans"].print("survived "+cutfloat(_uptime)+" secs", 10, 10, Color.white)
+      Font["OpenSans"].print("survived "+cutfloat(_uptime).toString+" secs", 10, 10, Color.white)
       Canvas.circlefill(Mouse.x, Mouse.y, 5, Color.white)
       _shapes.each { |shape| 
         shape.draw()
       }
       if (Canvas.pget(Mouse.x, Mouse.y) == Color.hex("444")) {
-        MODE = "not-playing"
+        //MODE = "not-playing"
 		_channel.stop()
 		_audioset = 0
       }

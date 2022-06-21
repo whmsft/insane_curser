@@ -9,22 +9,22 @@
   <a href="https://domeengine.com"> <img src="https://img.shields.io/badge/Made%20with-dome-8d3cff.svg?style=for-the-badge"> </a>
   
   <br>
-  <img src="./gameplay.gif">
+  <img src="https://github.com/whmsft/insane_curser/raw/main/gameplay.gif">
 </h1>
 
 
-My entry to [Micro Jam #1](https://itch.io/jam/micro-jam-1): insane\_CURSEr
+My entry to <a href="https://itch.io/jam/micro-jam-1">Micro Jam #1</a>: insane_CURSEr
 
 Just get insane and curse your cursor!
 
-## Credits
+<h2>Credits</h2>
 
-[Bob Nystorm](http://journal.stuffwithstuff.com/) ([@munificent](https://github.com/munificent)) for the awesome [Wren](https://wren.io) programming language
+Bob Nystorm for the awesome Wren programming language
 
-[@avivberri](https://github.com/avivberri) for making domeengine!
+<a href="avivberri.itch.io">Aviv Berri</a> for making domeengine!
 
-[warfame](https://scratch.mit.edu/users/warfame) for the original idea [Cursor Chaos](https://scratch.mit.edu/projects/99955207) on Scratch
+<a href="https://scratch.mit.edu/users/warfame">warfame</a> for the original idea <a href="https://scratch.mit.edu/projects/99955207">Cursor Chaos</a> on Scratch
 
-## Resource used
+<h2>Resource used</h2>
 OpenSans Font (c) 2022 Open Sans
 
