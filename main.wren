@@ -178,7 +178,7 @@ class main {
       Canvas.cls()
 	  _intro.draw(0,0)
       Canvas.circlefill(Mouse.x, Mouse.y, 5, Color.white)
-      Font["OpenSans"].print("Hit <RETURN> to start the chaos\nHIGHSCORE: "+HI, 10, 10, Color.white)
+      Font["OpenSans"].print("Press <RETURN> to start the chaos\nHIGHSCORE: "+HI, 10, 10, Color.white)
     }
   }
 }
